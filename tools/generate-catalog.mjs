@@ -142,7 +142,9 @@ writeFileSync(
   OUT,
   JSON.stringify(
     {
-      generatedAt: new Date().toISOString(),
+      // NOTE: intentionally NO generatedAt — the file is generated, but it
+      // must be byte-stable for a given ExtensionCatalog.cs so the CI catalog
+      // drift gate (`git diff --quiet -- catalog.generated.json`) is meaningful.
       source: "src/CM.EDITAR.Templates/ExtensionCatalog.cs",
       totalEntries: entries.length,
       uniqueExtensions: uniqueExts.size,
