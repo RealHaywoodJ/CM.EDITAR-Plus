@@ -1,0 +1,15 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: mailto:dev@eth-munson.com
+    about: |
+      Please do NOT open a public GitHub issue for security vulnerabilities.
+      Email dev@eth-munson.com — see SECURITY.md for the full disclosure policy.
+  - name: Question or idea
+    url: https://github.com/RealHaywoodJ/CM.EDITAR-Plus/discussions
+    about: |
+      For open-ended questions, design discussions, or "is this a bug?"
+      uncertainty, please start a Discussion instead of an Issue.
+  - name: Maintainer site
+    url: https://SHAmun.fyi
+    about: Project home page and contact links.

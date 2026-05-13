@@ -37,6 +37,36 @@ If you find CM.EDITAR+ useful, **tips welcome**: <https://SHAmun.fyi/tips>.
 
 ---
 
+## Quick start (Windows)
+
+You'll need **Windows 10 or 11** and the **.NET 8 SDK or any newer SDK
+(.NET 9, .NET 10 …)** — the `global.json` accepts any SDK ≥ 8.0.100, so a
+single up-to-date SDK install is enough. Grab one from
+<https://dotnet.microsoft.com/download> if you don't have it.
+
+```powershell
+# 1. Clone
+git clone https://github.com/RealHaywoodJ/CM.EDITAR-Plus.git
+cd CM.EDITAR-Plus
+
+# 2. Build & test
+dotnet build CM.EDITAR.sln -c Release
+dotnet test  CM.EDITAR.sln -c Release
+
+# 3. Run the desktop app
+dotnet run --project src/CM.EDITAR.UI -c Release
+```
+
+On first launch the app seeds **29 ready-to-use templates** (Markdown, JSON,
+YAML, Python, PowerShell, HTML, CSV, Dockerfile and more) into
+`%AppData%\CM.EDITAR+\Templates\`. Open the **Manager**, toggle the file
+types you want in your Windows **New** submenu, hit **Apply Changes**
+(green button) — your registry is snapshotted first, then only your personal
+HKCU keys are written, and Explorer is refreshed automatically. If anything
+looks wrong, **Undo Last** restores the snapshot.
+
+---
+
 ## Architecture
 
 ```
@@ -140,7 +170,10 @@ Manager awaits the import on first launch so the list is always populated when i
 
 ## Building
 
-Requires the **.NET 8 SDK** (8.0.100 or newer). On Windows, also install the
+Requires the **.NET 8 SDK or any newer SDK** (.NET 9, .NET 10 …). The
+`global.json` uses `rollForward: latestMajor`, so any SDK ≥ 8.0.100 will
+pick up the build — you do **not** need to downgrade or install an extra
+SDK if you already have a newer one. On Windows, also install the
 **WiX Toolset 4** SDK NuGet (restored automatically).
 
 ```powershell
@@ -290,7 +323,19 @@ dotnet run --project src/CM.EDITAR.UI -- # then click Refresh
 
 # Installer:
 msiexec /i .\dist\installer\CM.EDITAR.Setup.msi
+
+# UI end-to-end smoke flows (Windows only; needs WinAppDriver running):
+dotnet publish src/CM.EDITAR.UI -c Release -o publish/ui
+$env:CM_EDITAR_UI_EXE = (Resolve-Path .\publish\ui\CM.EDITAR.UI.exe)
+dotnet test tests/CM.EDITAR.UI.E2E -c Release
 ```
+
+The UI E2E suite covers discovery, stage+apply round-trip, and undo. It builds
+on every platform but only executes when WinAppDriver is reachable and
+`CM_EDITAR_UI_EXE` is set; the dedicated `ui-e2e.yml` GitHub Actions lane
+runs it on `windows-latest` and uploads screenshots/logs on failure. See
+[tests/CM.EDITAR.UI.E2E/README.md](tests/CM.EDITAR.UI.E2E/README.md) for
+local setup details.
 
 ---
 

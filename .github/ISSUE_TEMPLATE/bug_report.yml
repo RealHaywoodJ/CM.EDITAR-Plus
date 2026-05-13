@@ -1,0 +1,94 @@
+name: Bug report
+description: Report something that's broken or behaving unexpectedly in CM.EDITAR+.
+title: "[Bug] "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug! Please fill out the sections
+        below — the more detail you provide, the faster we can help.
+
+        **Security issues:** please do **not** file them here. Email
+        <dev@eth-munson.com> instead — see [SECURITY.md](../blob/main/SECURITY.md).
+
+  - type: input
+    id: version
+    attributes:
+      label: CM.EDITAR+ version
+      description: Help → About → version string.
+      placeholder: "e.g. v1.3.0"
+    validations:
+      required: true
+
+  - type: input
+    id: windows
+    attributes:
+      label: Windows build
+      description: Run `winver` to find this.
+      placeholder: "e.g. Windows 11 23H2 (Build 22631.3593)"
+    validations:
+      required: true
+
+  - type: input
+    id: dotnet
+    attributes:
+      label: .NET runtime version
+      description: Run `dotnet --info` and paste the runtime line, or just the version.
+      placeholder: "e.g. .NET 8.0.10 / .NET 10.0.300"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug.
+      placeholder: "When I clicked Apply Changes, …"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Numbered steps so we can reproduce the bug locally.
+      placeholder: |
+        1. Open the Manager and switch to A–Z view
+        2. Toggle .md off
+        3. Click Apply Changes
+        4. …
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: |
+        Logs live at `%LocalAppData%\CM.EDITAR+\Logs\`. Please **redact anything
+        sensitive** before pasting (paths, usernames, etc.).
+      render: shell
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Screenshots, related issues, ideas for fixes — all welcome.
+
+  - type: checkboxes
+    id: confirms
+    attributes:
+      label: Confirmations
+      options:
+        - label: I've searched existing issues and this isn't a duplicate.
+          required: true
+        - label: I've redacted any sensitive information from logs and screenshots.
+          required: true

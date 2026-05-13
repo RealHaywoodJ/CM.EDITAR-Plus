@@ -1,0 +1,49 @@
+name: Feature request
+description: Suggest a new feature or improvement for CM.EDITAR+.
+title: "[Feature] "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for sharing an idea! Please fill out the sections below so we
+        can understand what you're asking for and why.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: |
+        Tell us about the user need — not the implementation. Example:
+        "It's hard to find templates I use most often, because the catalog has 400+ entries."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: How would you like CM.EDITAR+ to behave?
+      placeholder: "Add a Favorites section pinned to the top of the Manager …"
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you've considered
+      description: Other approaches you've thought about, or current workarounds you use.
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Mockups, related links, examples from other tools — all welcome.
+
+  - type: checkboxes
+    id: confirms
+    attributes:
+      label: Confirmations
+      options:
+        - label: I've searched existing issues and discussions and this isn't a duplicate.
+          required: true
