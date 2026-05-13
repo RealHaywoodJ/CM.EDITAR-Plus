@@ -1,0 +1,21 @@
+# Created: %DATE% by %USERNAME%
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Build outputs
+bin/
+obj/
+dist/
+build/
+node_modules/
+
+# Logs and secrets
+*.log
+.env
+.env.local

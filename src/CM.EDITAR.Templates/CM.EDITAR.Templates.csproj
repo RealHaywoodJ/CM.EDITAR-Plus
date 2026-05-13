@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>CM.EDITAR.Templates</RootNamespace>
+    <AssemblyName>CM.EDITAR.Templates</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CM.EDITAR.Core\CM.EDITAR.Core.csproj" />
+  </ItemGroup>
+</Project>

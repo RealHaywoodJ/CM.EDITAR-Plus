@@ -1,0 +1,89 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:CM.EDITAR.UI.ViewModels"
+        xmlns:converters="using:Avalonia.Data.Converters"
+        x:Class="CM.EDITAR.UI.Views.TemplateManagerWindow"
+        x:DataType="vm:TemplateManagerViewModel"
+        Title="Template Manager — CM.EDITAR+"
+        Width="960" Height="640"
+        Background="{StaticResource BackgroundBrush}">
+  <DockPanel>
+    <!-- Quarantine banner: shown when imported templates were sanitized -->
+    <Border DockPanel.Dock="Top"
+            IsVisible="{Binding HasQuarantinedTemplates}"
+            Background="#7C2D12" BorderBrush="#B91C1C" BorderThickness="0,0,0,1"
+            Padding="12,8">
+      <Grid ColumnDefinitions="*,Auto">
+        <StackPanel Grid.Column="0" Spacing="2">
+          <TextBlock Text="Security notice: templates quarantined on import"
+                     FontWeight="Bold" Foreground="#FCA5A5"/>
+          <ItemsControl ItemsSource="{Binding QuarantinedTemplateNames}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Foreground="#FECACA" FontSize="11">
+                  <Run Text="  • "/>
+                  <Run Text="{Binding}"/>
+                  <Run Text=" — Command template was sanitized and disabled. Review and re-approve before use."/>
+                </TextBlock>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+        <Button Grid.Column="1" Content="Dismiss"
+                Command="{Binding DismissQuarantineCommand}"
+                VerticalAlignment="Top" Margin="12,0,0,0"
+                Background="Transparent" Foreground="#FCA5A5"
+                BorderBrush="#B91C1C"/>
+      </Grid>
+    </Border>
+
+    <!-- Status bar -->
+    <Border DockPanel.Dock="Bottom"
+            IsVisible="{Binding StatusMessage, Converter={x:Static converters:StringConverters.IsNotNullOrEmpty}}"
+            Background="{StaticResource PanelBrush}" BorderBrush="{StaticResource BorderBrush}"
+            BorderThickness="0,1,0,0" Padding="12,6">
+      <TextBlock Text="{Binding StatusMessage}" Opacity="0.85" FontSize="11"/>
+    </Border>
+
+    <!-- Main body -->
+    <Grid ColumnDefinitions="320,*">
+      <Border Background="{StaticResource PanelBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,1,0" Padding="8">
+        <DockPanel>
+          <TextBox DockPanel.Dock="Top" Watermark="Search templates..." Text="{Binding SearchText}" Margin="0,0,0,8"/>
+          <StackPanel DockPanel.Dock="Bottom" Orientation="Vertical" Spacing="6" Margin="0,8,0,0">
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <Button Content="Preview" Command="{Binding PreviewCommand}" />
+              <Button Content="Delete" Command="{Binding DeleteCommand}" />
+              <Button Content="Restore defaults" Command="{Binding RestoreDefaultCommand}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <Button Content="Export selected as pack…"
+                      Command="{Binding ExportPackCommand}"
+                      ToolTip.Tip="Save the selected template as a shareable .zip pack"/>
+              <Button Content="Import pack…"
+                      Command="{Binding ImportPackCommand}"
+                      ToolTip.Tip="Import a .zip template pack shared by a colleague or the community"/>
+            </StackPanel>
+          </StackPanel>
+          <ListBox ItemsSource="{Binding Templates}" SelectedItem="{Binding Selected}">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <StackPanel>
+                  <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                  <TextBlock Text="{Binding Category}" FontSize="11" Opacity="0.6"/>
+                </StackPanel>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </DockPanel>
+      </Border>
+      <Border Grid.Column="1" Padding="12">
+        <DockPanel>
+          <TextBlock DockPanel.Dock="Top" Text="Live Preview" FontWeight="Bold" Foreground="{StaticResource AccentBrush}" Margin="0,0,0,8"/>
+          <TextBox AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="True" FontFamily="Consolas,Menlo,monospace"
+                   Text="{Binding PreviewText}" Background="#0A0E14"/>
+        </DockPanel>
+      </Border>
+    </Grid>
+  </DockPanel>
+</Window>

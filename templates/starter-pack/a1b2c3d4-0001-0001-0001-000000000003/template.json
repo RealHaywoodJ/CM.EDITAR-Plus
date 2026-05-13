@@ -1,0 +1,8 @@
+{
+  "name": "%TITLE%",
+  "version": "1.0.0",
+  "createdAt": "%DATE%",
+  "author": "%USERNAME%",
+  "description": "",
+  "data": {}
+}

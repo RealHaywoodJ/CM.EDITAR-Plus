@@ -1,0 +1,40 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:CM.EDITAR.UI.ViewModels"
+        x:Class="CM.EDITAR.UI.Views.PreflightDialog"
+        x:DataType="vm:PreflightViewModel"
+        Title="Preflight — Dry-run Preview"
+        Width="900" Height="600"
+        Background="{StaticResource BackgroundBrush}">
+  <DockPanel Margin="16">
+    <TextBlock DockPanel.Dock="Top"
+               Text="The following registry operations WILL be performed on Apply:"
+               FontWeight="Bold" Margin="0,0,0,8"/>
+
+    <Border DockPanel.Dock="Bottom" Background="#1A1F26" Padding="12" CornerRadius="6" Margin="0,8,0,0"
+            IsVisible="{Binding Manifest.RequiresTypedConfirmation}">
+      <StackPanel Spacing="6">
+        <TextBlock Foreground="#F87171"
+                   Text="HIGH RISK: This batch contains a Command template. Type the confirmation phrase to enable Apply."/>
+        <TextBlock Text="{Binding ConfirmationPhrase}" Opacity="0.8"/>
+        <TextBox Text="{Binding TypedConfirmation, Mode=TwoWay}" />
+      </StackPanel>
+    </Border>
+
+    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Margin="0,12,0,0">
+      <Button Content="Cancel" Click="OnCancelClick" />
+      <Button x:Name="AcceptButton" Content="Accept" Click="OnAcceptClick"
+              Background="{StaticResource AccentBrush}" Foreground="Black" />
+    </StackPanel>
+
+    <DataGrid ItemsSource="{Binding Operations}" AutoGenerateColumns="False" IsReadOnly="True">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Op"    Binding="{Binding Kind}"      Width="80"/>
+        <DataGridTextColumn Header="Key"   Binding="{Binding KeyPath}"   Width="2*"/>
+        <DataGridTextColumn Header="Value" Binding="{Binding ValueName}" Width="120"/>
+        <DataGridTextColumn Header="Kind"  Binding="{Binding ValueKind}" Width="100"/>
+        <DataGridTextColumn Header="Data"  Binding="{Binding Value}"     Width="*"/>
+      </DataGrid.Columns>
+    </DataGrid>
+  </DockPanel>
+</Window>

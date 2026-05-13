@@ -1,0 +1,18 @@
+{
+  "id": "a1b2c3d4-0001-0001-0001-000000000008",
+  "name": "PowerShell Script",
+  "extensions": [
+    ".ps1"
+  ],
+  "category": "Starter Pack",
+  "defaultFilename": "New PowerShell Script",
+  "templateType": 1,
+  "templateSource": null,
+  "dataBase64": null,
+  "placeholders": [],
+  "createdAt": "2026-01-01T00:00:00+00:00",
+  "modifiedAt": "2026-01-01T00:00:00+00:00",
+  "author": "CM.EDITAR+",
+  "commandApproved": false,
+  "builtInVersion": "1.0.0"
+}

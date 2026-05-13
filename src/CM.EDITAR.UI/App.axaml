@@ -1,0 +1,20 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="CM.EDITAR.UI.App"
+             RequestedThemeVariant="Dark">
+  <Application.Styles>
+    <FluentTheme />
+  </Application.Styles>
+  <Application.Resources>
+    <ResourceDictionary>
+      <Color x:Key="AccentTeal">#1FB89A</Color>
+      <Color x:Key="BackgroundDark">#0E1116</Color>
+      <Color x:Key="PanelDark">#161B22</Color>
+      <Color x:Key="BorderDark">#2A2F36</Color>
+      <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentTeal}" />
+      <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundDark}" />
+      <SolidColorBrush x:Key="PanelBrush" Color="{StaticResource PanelDark}" />
+      <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderDark}" />
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

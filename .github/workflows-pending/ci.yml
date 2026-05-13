@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  # =============================================================================
+  # .NET solution: restore + build + test on Windows (the real target) and on
+  # Linux (cheap PR feedback — Windows-only services no-op or throw at runtime,
+  # but the solution must still compile).
+  # =============================================================================
+  dotnet:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore CM.EDITAR.sln
+
+      - name: Build
+        run: dotnet build CM.EDITAR.sln -c Release --no-restore
+
+      - name: Test
+        run: dotnet test CM.EDITAR.sln -c Release --no-build --verbosity normal
+
+  # =============================================================================
+  # JS workspace (pnpm monorepo): typecheck the design mockup and verify the
+  # extension catalog generator stays in sync with ExtensionCatalog.cs.
+  # =============================================================================
+  workspace:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Regenerate catalog (parity gate)
+        run: pnpm generate:catalog
+
+      - name: Typecheck mockup sandbox
+        run: pnpm --filter @workspace/mockup-sandbox run typecheck
+
+      - name: Fail if generated catalog drifted
+        run: |
+          if ! git diff --quiet -- artifacts/mockup-sandbox/src/components/mockups/cm-editar/catalog.generated.json; then
+            echo "::error::catalog.generated.json is out of date — run 'pnpm generate:catalog' and commit the result."
+            git --no-pager diff -- artifacts/mockup-sandbox/src/components/mockups/cm-editar/catalog.generated.json
+            exit 1
+          fi

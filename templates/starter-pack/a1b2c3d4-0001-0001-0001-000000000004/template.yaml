@@ -1,0 +1,8 @@
+project: %PROJECT%
+version: 0.1.0
+author: %USERNAME%
+created: %DATE%
+
+settings:
+  # Add your configuration here
+  debug: false

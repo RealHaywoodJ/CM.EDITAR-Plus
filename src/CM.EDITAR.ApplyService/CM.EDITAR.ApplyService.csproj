@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>CM.EDITAR.ApplyService</RootNamespace>
+    <AssemblyName>CM.EDITAR.ApplyService</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CM.EDITAR.Core\CM.EDITAR.Core.csproj" />
+    <ProjectReference Include="..\CM.EDITAR.Registry\CM.EDITAR.Registry.csproj" />
+  </ItemGroup>
+</Project>

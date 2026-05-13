@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>CM.EDITAR.FileCreator</RootNamespace>
+    <AssemblyName>CM.EDITAR.FileCreator</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CM.EDITAR.Core\CM.EDITAR.Core.csproj" />
+    <ProjectReference Include="..\CM.EDITAR.Registry\CM.EDITAR.Registry.csproj" />
+    <ProjectReference Include="..\CM.EDITAR.Templates\CM.EDITAR.Templates.csproj" />
+  </ItemGroup>
+</Project>

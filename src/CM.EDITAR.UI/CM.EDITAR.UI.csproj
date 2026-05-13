@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>CM.EDITAR.UI</RootNamespace>
+    <AssemblyName>CM.EDITAR.UI</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CM.EDITAR.Core\CM.EDITAR.Core.csproj" />
+    <ProjectReference Include="..\CM.EDITAR.Registry\CM.EDITAR.Registry.csproj" />
+    <ProjectReference Include="..\CM.EDITAR.ApplyService\CM.EDITAR.ApplyService.csproj" />
+    <ProjectReference Include="..\CM.EDITAR.Templates\CM.EDITAR.Templates.csproj" />
+    <ProjectReference Include="..\CM.EDITAR.FileCreator\CM.EDITAR.FileCreator.csproj">
+      <!--
+        UI consumes types from FileCreator (SecretStore, PipeClient, etc.) at runtime.
+        Private=true so the assembly is copied to the UI publish/output folder.
+        The installer packages UI/ and FileCreator/ into separate subdirectories, so
+        the duplicated FileCreator.dll alongside UI.exe is intentional and isolated.
+      -->
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <Private>true</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <!--
+      Copy the built-in starter-pack templates to the output directory so
+      StarterPackImporter can locate them at {AppContext.BaseDirectory}/templates/starter-pack/.
+    -->
+    <Content Include="$(MSBuildThisFileDirectory)..\..\templates\starter-pack\**\*"
+             Link="templates/starter-pack/%(RecursiveDir)%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.1" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.1" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="11.2.1" Condition="'$(Configuration)' == 'Debug'" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+  </ItemGroup>
+</Project>

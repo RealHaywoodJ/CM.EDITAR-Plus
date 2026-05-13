@@ -1,0 +1,24 @@
+{
+  "id": "a1b2c3d4-0001-0001-0001-000000000013",
+  "name": "README",
+  "extensions": [
+    ".readme"
+  ],
+  "category": "Starter Pack",
+  "defaultFilename": "New Readme",
+  "templateType": 1,
+  "templateSource": null,
+  "dataBase64": null,
+  "placeholders": [
+    {
+      "name": "TITLE",
+      "default": "Project",
+      "description": "Project title"
+    }
+  ],
+  "createdAt": "2026-01-01T00:00:00+00:00",
+  "modifiedAt": "2026-01-01T00:00:00+00:00",
+  "author": "CM.EDITAR+",
+  "commandApproved": false,
+  "builtInVersion": "1.0.0"
+}

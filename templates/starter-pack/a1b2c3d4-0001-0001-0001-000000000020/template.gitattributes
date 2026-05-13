@@ -1,0 +1,9 @@
+# Created: %DATE% by %USERNAME%
+
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.gif binary
+*.pdf binary
+*.zip binary

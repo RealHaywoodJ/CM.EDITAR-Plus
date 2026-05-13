@@ -1,0 +1,115 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:CM.EDITAR.UI.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="800"
+        x:Class="CM.EDITAR.UI.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="CM.EDITAR+ — ShellNew Manager"
+        Width="1280" Height="800"
+        Background="{StaticResource BackgroundBrush}">
+
+  <DockPanel LastChildFill="True">
+    <!-- Header -->
+    <Border DockPanel.Dock="Top" Background="{StaticResource PanelBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1" Padding="16,10">
+      <Grid ColumnDefinitions="Auto,*,Auto,Auto,Auto">
+        <TextBlock Grid.Column="0" Text="CM.EDITAR+" FontWeight="Bold" FontSize="18" Foreground="{StaticResource AccentBrush}" />
+        <TextBlock Grid.Column="1" Text="ShellNew Manager · v1.3.0" Margin="16,2,0,0" Opacity="0.7" />
+        <Border Grid.Column="2" Background="#1F2937" CornerRadius="6" Padding="8,3" Margin="0,0,8,0">
+          <TextBlock Text="Elevation: not required" FontSize="11" Foreground="#9CA3AF"/>
+        </Border>
+        <TextBox Grid.Column="3" Width="220" Watermark="Search extensions..." Text="{Binding SearchText}" />
+        <Button Grid.Column="4" Content="Help" Margin="8,0,0,0" />
+      </Grid>
+    </Border>
+
+    <!-- Footer -->
+    <Border DockPanel.Dock="Bottom" Background="{StaticResource PanelBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,1,0,0" Padding="16,8">
+      <Grid ColumnDefinitions="*,Auto">
+        <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center" Opacity="0.85" />
+        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6">
+          <Button Content="Preflight" Command="{Binding PreflightCommand}" />
+          <Button Content="Apply Changes" Command="{Binding ApplyCommand}" Background="{StaticResource AccentBrush}" Foreground="Black" />
+          <Button Content="Undo Last" Command="{Binding UndoLastCommand}" />
+          <Button Content="Undo All" Command="{Binding UndoAllCommand}" />
+          <Button Content="Flush Shell" Command="{Binding FlushShellCacheCommand}" />
+          <Button Content="Export Pack" Command="{Binding ExportPackCommand}" />
+          <Button Content="Import Pack" Command="{Binding ImportPackCommand}" />
+          <Button Content="Templates..." Command="{Binding OpenTemplateManagerCommand}" />
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <!-- Body: 3-column layout -->
+    <Grid ColumnDefinitions="220,*,320">
+      <!-- Left: categories -->
+      <Border Grid.Column="0" Background="{StaticResource PanelBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,1,0">
+        <ListBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" Background="Transparent" />
+      </Border>
+
+      <!-- Center: DataGrid -->
+      <DataGrid Grid.Column="1"
+                ItemsSource="{Binding Entries}"
+                SelectedItem="{Binding SelectedEntry}"
+                AutoGenerateColumns="False"
+                IsReadOnly="True"
+                GridLinesVisibility="Horizontal"
+                CanUserSortColumns="True"
+                Margin="0">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="#" Binding="{Binding QueuePosition}" Width="40" />
+          <DataGridTextColumn Header="Ext" Binding="{Binding Extension}" Width="80" />
+          <DataGridTextColumn Header="New menu label" Binding="{Binding DisplayName}" Width="*" />
+          <DataGridTextColumn Header="Group" Binding="{Binding Group}" Width="140" />
+          <DataGridTextColumn Header="State" Binding="{Binding State}" Width="80" />
+          <DataGridTextColumn Header="Risk" Binding="{Binding RiskBadge}" Width="60" />
+          <DataGridTextColumn Header="Source" Binding="{Binding Description}" Width="2*" />
+        </DataGrid.Columns>
+      </DataGrid>
+
+      <!-- Right: cards -->
+      <Border Grid.Column="2" Background="{StaticResource PanelBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1,0,0,0">
+        <ScrollViewer>
+          <StackPanel Margin="12" Spacing="12">
+            <!-- Selected Entry card -->
+            <Border Background="#1A1F26" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="6" Padding="12">
+              <StackPanel Spacing="6">
+                <TextBlock Text="Selected Entry" FontWeight="Bold" Foreground="{StaticResource AccentBrush}"/>
+                <TextBlock Text="{Binding SelectedEntry.Extension}" FontSize="20" />
+                <TextBlock Text="{Binding SelectedEntry.DisplayName}" Opacity="0.85" />
+                <TextBlock Text="{Binding SelectedEntry.Description}" FontSize="11" Opacity="0.6" TextWrapping="Wrap"/>
+                <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,6,0,0">
+                  <Button Content="Stage Enable" Command="{Binding StageEnableCommand}" />
+                  <Button Content="Stage Disable" Command="{Binding StageDisableCommand}" />
+                </StackPanel>
+              </StackPanel>
+            </Border>
+
+            <!-- Custom Add card -->
+            <Border Background="#1A1F26" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="6" Padding="12">
+              <StackPanel Spacing="6">
+                <TextBlock Text="Custom Add" FontWeight="Bold" Foreground="{StaticResource AccentBrush}"/>
+                <TextBox Watermark="Pack name" Text="{Binding CustomPackName}" />
+                <TextBox Watermark="Extension (e.g. .myx)" Text="{Binding CustomExtension}" />
+                <TextBox Watermark="Display name" Text="{Binding CustomDisplayName}" />
+                <Button Content="Stage Add" Command="{Binding AddCustomCommand}" HorizontalAlignment="Right"/>
+              </StackPanel>
+            </Border>
+
+            <!-- Runtime Status card -->
+            <Border Background="#1A1F26" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="6" Padding="12">
+              <StackPanel Spacing="4">
+                <TextBlock Text="Runtime Status" FontWeight="Bold" Foreground="{StaticResource AccentBrush}"/>
+                <TextBlock><Run Text="Visible: "/><Run Text="{Binding VisibleCount}"/></TextBlock>
+                <TextBlock><Run Text="Pending: "/><Run Text="{Binding PendingCount}"/></TextBlock>
+                <TextBlock><Run Text="Undo stack: "/><Run Text="{Binding UndoCount}"/></TextBlock>
+                <TextBlock Text="HKCU-only writes" Opacity="0.6" FontSize="11"/>
+              </StackPanel>
+            </Border>
+          </StackPanel>
+        </ScrollViewer>
+      </Border>
+    </Grid>
+  </DockPanel>
+</Window>

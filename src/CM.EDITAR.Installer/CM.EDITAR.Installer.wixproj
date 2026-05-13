@@ -1,0 +1,22 @@
+<Project Sdk="WixToolset.Sdk/4.0.5">
+  <PropertyGroup>
+    <OutputName>CM.EDITAR.Setup</OutputName>
+    <OutputType>Package</OutputType>
+    <InstallerPlatform>x64</InstallerPlatform>
+    <!--
+      Source binaries from the *publish* output (RID-aware, framework-dependent), which is what
+      build-installer.ps1 produces via `dotnet publish -c $(Configuration) -r win-x64
+      --self-contained false`. Building from `bin/...` would package stale or incomplete output.
+    -->
+    <PublishRid>win-x64</PublishRid>
+    <DefineConstants>UIPublishDir=$(MSBuildThisFileDirectory)..\CM.EDITAR.UI\bin\$(Configuration)\net8.0\$(PublishRid)\publish;FileCreatorPublishDir=$(MSBuildThisFileDirectory)..\CM.EDITAR.FileCreator\bin\$(Configuration)\net8.0\$(PublishRid)\publish</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="WixToolset.UI.wixext" Version="4.0.5" />
+    <PackageReference Include="WixToolset.Util.wixext" Version="4.0.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CM.EDITAR.UI\CM.EDITAR.UI.csproj" />
+    <ProjectReference Include="..\CM.EDITAR.FileCreator\CM.EDITAR.FileCreator.csproj" />
+  </ItemGroup>
+</Project>

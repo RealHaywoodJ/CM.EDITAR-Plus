@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>CM.EDITAR.Registry</RootNamespace>
+    <AssemblyName>CM.EDITAR.Registry</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CM.EDITAR.Core\CM.EDITAR.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!--
+      ApplyService is the only legitimate caller of internal `RegistryService.ApplyOperation`
+      and other internal helpers. Friend-assembly access keeps the API intentionally narrow
+      while still letting the apply pipeline drive HKCU writes.
+    -->
+    <InternalsVisibleTo Include="CM.EDITAR.ApplyService" />
+    <InternalsVisibleTo Include="CM.EDITAR.Registry.Tests" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(OS)' == 'Windows_NT'">
+    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+  </ItemGroup>
+</Project>

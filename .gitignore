@@ -1,0 +1,68 @@
+# =============================================================================
+# Node / pnpm workspace (existing JS artifacts in this monorepo)
+# =============================================================================
+node_modules/
+.pnpm-store/
+.pnpm-debug.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+.yarn/
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+.turbo/
+.vite/
+.expo/
+.expo-shared/
+
+# TypeScript incremental build metadata (generated, never tracked)
+*.tsbuildinfo
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.suo
+*.user
+*.userprefs
+
+# Coverage / test output
+coverage/
+TestResults/
+*.coverage
+*.trx
+*.lcov
+
+# =============================================================================
+# .NET / Visual Studio (CM.EDITAR+ scaffold)
+# =============================================================================
+bin/
+obj/
+.vs/
+artifacts/build-output/
+*.DotSettings.user
+
+# WiX
+*.wixobj
+*.wixpdb
+*.msi
+*.exe.config.deploy
+
+# =============================================================================
+# Generic build output
+# =============================================================================
+dist/
+out/
+build/
+publish/
+
+# =============================================================================
+# OS noise
+# =============================================================================
+.DS_Store
+Thumbs.db
+desktop.ini
