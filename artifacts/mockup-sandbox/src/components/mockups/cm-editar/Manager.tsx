@@ -107,8 +107,8 @@ const CATALOG = catalogJson as unknown as CatalogJson;
 
 // One icon per wired category — picked so the dense sidebar reads at a glance.
 const CATEGORY_ICONS: Record<string, typeof FileText> = {
+  "AI/Automation": Sparkles,
   "Archives": FileArchive,
-  "Automation/Data": Sparkles,
   "CAD/3D": Layers,
   "Cloud Docs": Globe,
   "Legacy": ScrollText,

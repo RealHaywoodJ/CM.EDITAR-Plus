@@ -16,7 +16,7 @@ templated file types. Every change is HKCU-scoped, snapshotted before write, ver
 and reversible from a built-in undo stack.
 
 It ships a **comprehensive 400+ extension catalog** across 11 wired categories
-(Archives, Automation/Data, CAD/3D, Cloud Docs, Legacy, Media, Office/Docs,
+(AI/Automation, Archives, CAD/3D, Cloud Docs, Legacy, Media, Office/Docs,
 Omega Database, Power User, System, Text/Data) sourced from a single C# file
 (`ExtensionCatalog.cs`) and surfaced in both Category and A–Z views. High-risk
 executable extensions (`.exe`, `.bat`, `.ps1`, `.crx`, `.msi`, `.scr`, …) are
