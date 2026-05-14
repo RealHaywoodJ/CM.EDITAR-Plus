@@ -176,6 +176,11 @@ pick up the build — you do **not** need to downgrade or install an extra
 SDK if you already have a newer one. On Windows, also install the
 **WiX Toolset 4** SDK NuGet (restored automatically).
 
+> **WiX `<Files Include=…>` works on WiX 4.0.5.** The auto-harvest element
+> the installer uses (`<Files Include="$(var.UIPublishDir)\**" />`) is
+> available across WiX v4 *and* v5 — there is no need to upgrade. The
+> NuGet `WixToolset.Sdk/4.0.5` pin is intentional for reproducible builds.
+
 ```powershell
 # Restore + build + run unit tests
 pwsh ./scripts/build.ps1

@@ -9,4 +9,15 @@
     <ProjectReference Include="..\CM.EDITAR.Registry\CM.EDITAR.Registry.csproj" />
     <ProjectReference Include="..\CM.EDITAR.Templates\CM.EDITAR.Templates.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <!--
+      DPAPI (System.Security.Cryptography.ProtectedData.Protect/Unprotect) used by
+      SecretStore.cs to encrypt the per-install IPC token on Windows. On .NET 8 this
+      lives in a separate NuGet package — without it the project fails to compile on
+      a clean Windows restore even though `using System.Security.Cryptography;` looks
+      satisfied. The API is no-op'd via OS guards on Linux/macOS, but the package
+      reference is still required so the type resolves cross-platform during build.
+    -->
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="8.0.0" />
+  </ItemGroup>
 </Project>

@@ -5,11 +5,30 @@ All notable changes to CM.EDITAR+ are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+- **Renamed** the `Automation/Data` catalog category to **`AI/Automation`**
+  to reflect that every entry in it (model weights, tokenizers, prompts,
+  embeddings, vector indices, notebooks, workflows) is part of the local-AI
+  workflow. No entries moved between categories — only the label changed,
+  and the sidebar now lists `AI/Automation` first (alphabetical).
+
+### Fixed
+- **FileCreator now restores cleanly on Windows.** Added an explicit
+  `System.Security.Cryptography.ProtectedData` NuGet `PackageReference` to
+  `CM.EDITAR.FileCreator.csproj`. DPAPI lives in a separate package on
+  .NET 8; without it the DPAPI wrap/unwrap used by `SecretStore.cs` failed
+  to compile on a clean restore.
+- **`App.axaml.cs`** now imports `Avalonia.Controls` explicitly so the
+  startup hand-off compiles against future Avalonia versions where the
+  transitive type re-export drops.
+
 ## [1.3.0] — 2026-05-13
 
 ### Added
 - **Comprehensive 400+ extension catalog** spanning 11 wired categories —
-  Archives, Automation/Data, CAD/3D, Cloud Docs, Legacy, Media, Office/Docs,
+  AI/Automation, Archives, CAD/3D, Cloud Docs, Legacy, Media, Office/Docs,
   Omega Database, Power User, System and Text/Data — sourced from a single
   C# file (`ExtensionCatalog.cs`) and consumed by both the desktop UI and
   the design-mockup sandbox via a generated JSON artifact.
